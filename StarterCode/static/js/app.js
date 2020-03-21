@@ -23,12 +23,40 @@ filter.on("click", function(){
     var state = inputState.property("value");
     var city = inputCity.property("value");
     var country = inputCountry.property("value");
-    // console.log(date);
-    var filteredData = tableData.filter(d => d.datetime == date || 
-        d.state == state|| d.city == city || d.country == country);
+    console.log(date);
+    // if (tableData.datetime!=date){
+    //    tbody.html("Sorry, date not found in data.")
+    // }
+    if(date == ""){
+        var dateFilter = tableData;
+    }
+    else{
+        var dateFilter = tableData.filter(d => d.datetime == date);
+    }
+    if(city == ""){
+        var cityFilter = dateFilter;
+    }
+    else{
+        var cityFilter = dateFilter.filter(d => d.city == city);
+    }
+    if(state == ""){
+        var stateFilter = cityFilter;
+    }
+    else{
+        var stateFilter = cityFilter.filter(d => d.state == state);
+    }
+    if(country == ""){
+        var countryFilter = stateFilter;
+    }
+    else{
+        var countryFilter = stateFilter.filter(d => d.country == country);
+    }
+    // console.log(cityFilter)
+        // || 
+        // d.state == state|| d.city == city || d.country == country);
     // console.log(filteredData);
-    filteredData.forEach(function(table){
-        var row = tbody.append("tr")
+    countryFilter.forEach(function(table){
+        var row = tbody.append("tr");
         Object.entries(table).forEach(function([key, value]){
             var cell = row.append("td");
             cell.text(value);
