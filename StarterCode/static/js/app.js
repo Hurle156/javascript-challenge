@@ -18,12 +18,14 @@ filter.on("click", function(){
     var inputState = d3.select("#state");
     var inputCity = d3.select("#city");
     var inputCountry = d3.select("#country");
+    var inputShape = d3.select("#selShapes");
     // console.log("we have input");
     var date = inputDate.property("value");
     var state = inputState.property("value");
     var city = inputCity.property("value");
     var country = inputCountry.property("value");
-    console.log(date);
+    var shape = inputShape.property("value");
+    // console.log(shape);
     // if (tableData.datetime!=date){
     //    tbody.html("Sorry, date not found in data.")
     // }
@@ -51,11 +53,13 @@ filter.on("click", function(){
     else{
         var countryFilter = stateFilter.filter(d => d.country == country);
     }
-    // console.log(cityFilter)
-        // || 
-        // d.state == state|| d.city == city || d.country == country);
-    // console.log(filteredData);
-    countryFilter.forEach(function(table){
+    if(shape == ""){
+        var finalFilter = countryFilter;
+    }
+    else{
+        var finalFilter = countryFilter.filter(d => d.shape == shape);
+    }
+    finalFilter.forEach(function(table){
         var row = tbody.append("tr");
         Object.entries(table).forEach(function([key, value]){
             var cell = row.append("td");
